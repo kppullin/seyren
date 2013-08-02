@@ -114,10 +114,13 @@ CheckController.prototype = {
             th : this.newsubscription.th,
             fr : this.newsubscription.fr,
             sa : this.newsubscription.sa,
+            ignoreWarn : !this.newsubscription.alertOnWarn,
+            ignoreError : !this.newsubscription.alertOnError,
             fromTime : this.newsubscription.fromTime,
             toTime : this.newsubscription.toTime,
             enabled : this.newsubscription.enabled
         };
+        console.log(subscription);
         $('#createSubscriptionButton').addClass('disabled');
         this.$xhr('POST', this.seyrenBaseUrl + '/api/checks/' + this.id + '/subscriptions', subscription, this.createSubscriptionSuccess, this.createSubscriptionFailure);
     },
@@ -126,6 +129,19 @@ CheckController.prototype = {
         $("#addSubscriptionModal").modal("hide"); 
         $('#createSubscriptionButton').removeClass('disabled');
         this.newsubscription.target = '';
+        this.newsubscription.type = 'EMAIL';
+        this.newsubscription.su = true;
+        this.newsubscription.mo = true;
+        this.newsubscription.tu = true;
+        this.newsubscription.we = true;
+        this.newsubscription.th = true;
+        this.newsubscription.fr = true;
+        this.newsubscription.sa = true;
+        this.newsubscription.alertOnWarn = true;
+        this.newsubscription.alertOnError = true;
+        this.newsubscription.fromTime = '0000';
+        this.newsubscription.toTime = '2359';
+        this.newsubscription.enabled = true;
         this.loadCheck();
     },
     
